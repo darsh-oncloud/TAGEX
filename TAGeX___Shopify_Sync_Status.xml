@@ -1,0 +1,754 @@
+<workflow scriptid="customworkflow_tagex_shopify_sync_status">
+  <description></description>
+  <initcontexts>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|CUSTOMTOOL|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</initcontexts>
+  <initeventtypes></initeventtypes>
+  <initlocalizationcontext></initlocalizationcontext>
+  <initoncreate>T</initoncreate>
+  <initonvieworupdate>T</initonvieworupdate>
+  <initsavedsearchcondition></initsavedsearchcondition>
+  <inittriggertype></inittriggertype>
+  <isinactive>F</isinactive>
+  <islogenabled>F</islogenabled>
+  <keephistory>ALWAYS</keephistory>
+  <name>TAGeX | Shopify Sync Status</name>
+  <recordtypes>INVENTORYITEM</recordtypes>
+  <releasestatus>RELEASED</releasestatus>
+  <runasadmin>T</runasadmin>
+  <initcondition>
+    <formula></formula>
+    <type>VISUAL_BUILDER</type>
+  </initcondition>
+  <workflowstates>
+    <workflowstate scriptid="workflowstate189">
+      <description></description>
+      <donotexitworkflow>F</donotexitworkflow>
+      <name>State 1</name>
+      <positionx>643</positionx>
+      <positiony>143</positiony>
+      <workflowactions triggertype="AFTERSUBMIT">
+        <setfieldvalueaction scriptid="workflowaction527">
+          <clienttriggerfields></clienttriggerfields>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|CUSTOMTOOL|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <field>[scriptid=custitem_shopify_sync_action]</field>
+          <isinactive>F</isinactive>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <valuechecked>F</valuechecked>
+          <valuedate></valuedate>
+          <valuefield></valuefield>
+          <valueformula></valueformula>
+          <valuejoinfield></valuejoinfield>
+          <valueselect>[scriptid=customlist_shopify_sync_action.val_3836282_5406208_264]</valueselect>
+          <valuetext></valuetext>
+          <valuetype>STATIC</valuetype>
+          <initcondition>
+            <formula><![CDATA[isEmpty("Old Record:Shopify Product ID") = 'F' AND "Old Record:Events " IN ("{#Event#}1") AND "Events " NOT IN ("{#Event#}1")]]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Old Record:Shopify Product ID</name>
+                <value>@OLDRECORD@:[scriptid=custitem_shopify_product_id]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Events </name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>{#Event#}1</name>
+                <selectrecordtype>-20</selectrecordtype>
+                <value>[ACCOUNT_SPECIFIC_VALUE]</value>
+              </parameter>
+              <parameter>
+                <name>Events </name>
+                <value>[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+            </parameters>
+          </initcondition>
+        </setfieldvalueaction>
+        <setfieldvalueaction scriptid="workflowaction528">
+          <clienttriggerfields></clienttriggerfields>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|CUSTOMTOOL|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <field>[scriptid=custitem_shopify_sync_status]</field>
+          <isinactive>F</isinactive>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <valuechecked>F</valuechecked>
+          <valuedate></valuedate>
+          <valuefield></valuefield>
+          <valueformula></valueformula>
+          <valuejoinfield></valuejoinfield>
+          <valueselect>[scriptid=customlist_shopify_sync_status.val_3836286_5406208_513]</valueselect>
+          <valuetext></valuetext>
+          <valuetype>STATIC</valuetype>
+          <initcondition>
+            <formula><![CDATA[isEmpty("Old Record:Shopify Product ID") = 'F' AND "Old Record:Events " IN ("{#Event#}1") AND "Events " NOT IN ("{#Event#}1")]]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Old Record:Shopify Product ID</name>
+                <value>@OLDRECORD@:[scriptid=custitem_shopify_product_id]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Events </name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>{#Event#}1</name>
+                <selectrecordtype>-20</selectrecordtype>
+                <value>[ACCOUNT_SPECIFIC_VALUE]</value>
+              </parameter>
+              <parameter>
+                <name>Events </name>
+                <value>[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+            </parameters>
+          </initcondition>
+        </setfieldvalueaction>
+        <setfieldvalueaction scriptid="workflowaction529">
+          <clienttriggerfields></clienttriggerfields>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|CUSTOMTOOL|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <field>[scriptid=custitem_shopify_sync_action]</field>
+          <isinactive>F</isinactive>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <valuechecked>F</valuechecked>
+          <valuedate></valuedate>
+          <valuefield></valuefield>
+          <valueformula></valueformula>
+          <valuejoinfield></valuejoinfield>
+          <valueselect>[scriptid=customlist_shopify_sync_action.val_3836283_5406208_817]</valueselect>
+          <valuetext></valuetext>
+          <valuetype>STATIC</valuetype>
+          <initcondition>
+            <formula><![CDATA[isEmpty("Old Record:Shopify Product ID") = 'F' AND "Old Record:Events " NOT IN ("{#Event#}1") AND "Events " IN ("{#Event#}1") AND "Shopify Sync Action" IN ("Shopify Sync Action1")]]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Old Record:Shopify Product ID</name>
+                <value>@OLDRECORD@:[scriptid=custitem_shopify_product_id]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Events </name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>{#Event#}1</name>
+                <selectrecordtype>-20</selectrecordtype>
+                <value>[ACCOUNT_SPECIFIC_VALUE]</value>
+              </parameter>
+              <parameter>
+                <name>Events </name>
+                <value>[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>Shopify Sync Action</name>
+                <value>[scriptid=custitem_shopify_sync_action]</value>
+              </parameter>
+              <parameter>
+                <name>Shopify Sync Action1</name>
+                <selectrecordtype>[scriptid=customlist_shopify_sync_action]</selectrecordtype>
+                <value>[scriptid=customlist_shopify_sync_action.val_3836282_5406208_264]</value>
+              </parameter>
+            </parameters>
+          </initcondition>
+        </setfieldvalueaction>
+        <setfieldvalueaction scriptid="workflowaction530">
+          <clienttriggerfields></clienttriggerfields>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|CUSTOMTOOL|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <field>[scriptid=custitem_shopify_sync_status]</field>
+          <isinactive>F</isinactive>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <valuechecked>F</valuechecked>
+          <valuedate></valuedate>
+          <valuefield></valuefield>
+          <valueformula></valueformula>
+          <valuejoinfield></valuejoinfield>
+          <valueselect>[scriptid=customlist_shopify_sync_status.val_3836286_5406208_513]</valueselect>
+          <valuetext></valuetext>
+          <valuetype>STATIC</valuetype>
+          <initcondition>
+            <formula><![CDATA[isEmpty("Old Record:Shopify Product ID") = 'F' AND "Old Record:Events " NOT IN ("{#Event#}1") AND "Events " IN ("{#Event#}1") AND "Shopify Sync Action" IN ("Shopify Sync Action1")]]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Old Record:Shopify Product ID</name>
+                <value>@OLDRECORD@:[scriptid=custitem_shopify_product_id]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Events </name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>{#Event#}1</name>
+                <selectrecordtype>-20</selectrecordtype>
+                <value>[ACCOUNT_SPECIFIC_VALUE]</value>
+              </parameter>
+              <parameter>
+                <name>Events </name>
+                <value>[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>Shopify Sync Action</name>
+                <value>[scriptid=custitem_shopify_sync_action]</value>
+              </parameter>
+              <parameter>
+                <name>Shopify Sync Action1</name>
+                <selectrecordtype>[scriptid=customlist_shopify_sync_action]</selectrecordtype>
+                <value>[scriptid=customlist_shopify_sync_action.val_3836282_5406208_264]</value>
+              </parameter>
+            </parameters>
+          </initcondition>
+        </setfieldvalueaction>
+        <setfieldvalueaction scriptid="workflowaction523">
+          <clienttriggerfields></clienttriggerfields>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|CUSTOMTOOL|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <field>[scriptid=custitem_shopify_sync_action]</field>
+          <isinactive>F</isinactive>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <valuechecked>F</valuechecked>
+          <valuedate></valuedate>
+          <valuefield></valuefield>
+          <valueformula></valueformula>
+          <valuejoinfield></valuejoinfield>
+          <valueselect>[scriptid=customlist_shopify_sync_action.val_3836280_5406208_258]</valueselect>
+          <valuetext></valuetext>
+          <valuetype>STATIC</valuetype>
+          <initcondition>
+            <formula><![CDATA[isEmpty("Shopify Product ID") = 'T' AND "Events " IN ("{#Event#}1")]]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Shopify Product ID</name>
+                <value>[scriptid=custitem_shopify_product_id]</value>
+              </parameter>
+              <parameter>
+                <name>Events </name>
+                <value>[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>{#Event#}1</name>
+                <selectrecordtype>-20</selectrecordtype>
+                <value>[ACCOUNT_SPECIFIC_VALUE]</value>
+              </parameter>
+            </parameters>
+          </initcondition>
+        </setfieldvalueaction>
+        <setfieldvalueaction scriptid="workflowaction524">
+          <clienttriggerfields></clienttriggerfields>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|CUSTOMTOOL|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <field>[scriptid=custitem_shopify_sync_status]</field>
+          <isinactive>F</isinactive>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <valuechecked>F</valuechecked>
+          <valuedate></valuedate>
+          <valuefield></valuefield>
+          <valueformula></valueformula>
+          <valuejoinfield></valuejoinfield>
+          <valueselect>[scriptid=customlist_shopify_sync_status.val_3836286_5406208_513]</valueselect>
+          <valuetext></valuetext>
+          <valuetype>STATIC</valuetype>
+          <initcondition>
+            <formula><![CDATA[isEmpty("Shopify Product ID") = 'T' AND "Events " IN ("{#Event#}1")]]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Shopify Product ID</name>
+                <value>[scriptid=custitem_shopify_product_id]</value>
+              </parameter>
+              <parameter>
+                <name>Events </name>
+                <value>[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>{#Event#}1</name>
+                <selectrecordtype>-20</selectrecordtype>
+                <value>[ACCOUNT_SPECIFIC_VALUE]</value>
+              </parameter>
+            </parameters>
+          </initcondition>
+        </setfieldvalueaction>
+        <setfieldvalueaction scriptid="workflowaction525">
+          <clienttriggerfields></clienttriggerfields>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|CUSTOMTOOL|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <field>[scriptid=custitem_shopify_sync_action]</field>
+          <isinactive>T</isinactive>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <valuechecked>F</valuechecked>
+          <valuedate></valuedate>
+          <valuefield></valuefield>
+          <valueformula></valueformula>
+          <valuejoinfield></valuejoinfield>
+          <valueselect>[scriptid=customlist_shopify_sync_action.val_3836281_5406208_365]</valueselect>
+          <valuetext></valuetext>
+          <valuetype>STATIC</valuetype>
+          <initcondition>
+            <formula><![CDATA[isEmpty("Shopify Product ID") = 'F' AND isEmpty("Old Record:Shopify Product ID") = 'F' AND "Events " IN ("{#Event#}1") AND "Old Record:Events " IN ("{#Event#}1")]]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Shopify Product ID</name>
+                <value>[scriptid=custitem_shopify_product_id]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Shopify Product ID</name>
+                <value>@OLDRECORD@:[scriptid=custitem_shopify_product_id]</value>
+              </parameter>
+              <parameter>
+                <name>Events </name>
+                <value>[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>{#Event#}1</name>
+                <selectrecordtype>-20</selectrecordtype>
+                <value>[ACCOUNT_SPECIFIC_VALUE]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Events </name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+            </parameters>
+          </initcondition>
+        </setfieldvalueaction>
+        <setfieldvalueaction scriptid="workflowaction526">
+          <clienttriggerfields></clienttriggerfields>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|CUSTOMTOOL|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <field>[scriptid=custitem_shopify_sync_status]</field>
+          <isinactive>T</isinactive>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <valuechecked>F</valuechecked>
+          <valuedate></valuedate>
+          <valuefield></valuefield>
+          <valueformula></valueformula>
+          <valuejoinfield></valuejoinfield>
+          <valueselect>[scriptid=customlist_shopify_sync_status.val_3836286_5406208_513]</valueselect>
+          <valuetext></valuetext>
+          <valuetype>STATIC</valuetype>
+          <initcondition>
+            <formula><![CDATA[isEmpty("Shopify Product ID") = 'F' AND "Events " IN ("{#Event#}1")]]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Shopify Product ID</name>
+                <value>[scriptid=custitem_shopify_product_id]</value>
+              </parameter>
+              <parameter>
+                <name>Events </name>
+                <value>[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>{#Event#}1</name>
+                <selectrecordtype>-20</selectrecordtype>
+                <value>[ACCOUNT_SPECIFIC_VALUE]</value>
+              </parameter>
+            </parameters>
+          </initcondition>
+        </setfieldvalueaction>
+        <setfieldvalueaction scriptid="workflowaction531">
+          <clienttriggerfields></clienttriggerfields>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|CUSTOMTOOL|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <field>[scriptid=custitem_shopify_sync_action]</field>
+          <isinactive>F</isinactive>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <valuechecked>F</valuechecked>
+          <valuedate></valuedate>
+          <valuefield></valuefield>
+          <valueformula></valueformula>
+          <valuejoinfield></valuejoinfield>
+          <valueselect>[scriptid=customlist_shopify_sync_action.val_3836281_5406208_365]</valueselect>
+          <valuetext></valuetext>
+          <valuetype>STATIC</valuetype>
+          <initcondition>
+            <formula><![CDATA[isEmpty("Shopify Product ID") = 'F' AND "Events " IN ("{#Event#}1") AND "Old Record:Events " IN ("{#Event#}1") AND ( "Old Record:Shopify Item Description " != "Shopify Item Description " OR "Old Record:Hierarchy Node (Shopify)" != "Hierarchy Node (Shopify)" OR "Old Record:Condition" NOT IN ("Condition") OR "Old Record:Height" != "Height" OR "Old Record:Width" != "Width" OR "Old Record:Depth" != "Depth" OR "Old Record:Image 1" != "Image 1" OR "Old Record:Image 2" != "Image 2" OR "Old Record:Image 3" != "Image 3" OR "Old Record:Image 4" != "Image 4" OR "Old Record:Image 5" != "Image 5" OR "Old Record:Model Serial Number" != "Model Serial Number" OR "Old Record:Manufacturer" != "Manufacturer" OR "Old Record:MPN" != "MPN" OR "Old Record:Shopify Price" != "Shopify Price" OR "Old Record:Purchase Description" != "Purchase Description" OR "Old Record:Compare At Price" != "Compare At Price" )]]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Shopify Product ID</name>
+                <value>[scriptid=custitem_shopify_product_id]</value>
+              </parameter>
+              <parameter>
+                <name>Events </name>
+                <value>[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>{#Event#}1</name>
+                <selectrecordtype>-20</selectrecordtype>
+                <value>[ACCOUNT_SPECIFIC_VALUE]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Events </name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Shopify Item Description </name>
+                <value>@OLDRECORD@:[scriptid=custitem_shopify_item_description]</value>
+              </parameter>
+              <parameter>
+                <name>Shopify Item Description </name>
+                <value>[scriptid=custitem_shopify_item_description]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Hierarchy Node (Shopify)</name>
+                <value>@OLDRECORD@:[scriptid=custitem_hierarchy_node_shopify]</value>
+              </parameter>
+              <parameter>
+                <name>Hierarchy Node (Shopify)</name>
+                <value>[scriptid=custitem_hierarchy_node_shopify]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Condition</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_condition]</value>
+              </parameter>
+              <parameter>
+                <name>Condition</name>
+                <value>[scriptid=custitem_ns_tx_condition]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Height</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_height]</value>
+              </parameter>
+              <parameter>
+                <name>Height</name>
+                <value>[scriptid=custitem_ns_tx_height]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Width</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_width]</value>
+              </parameter>
+              <parameter>
+                <name>Width</name>
+                <value>[scriptid=custitem_ns_tx_width]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Depth</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_depth]</value>
+              </parameter>
+              <parameter>
+                <name>Depth</name>
+                <value>[scriptid=custitem_ns_tx_depth]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Image 1</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_image1]</value>
+              </parameter>
+              <parameter>
+                <name>Image 1</name>
+                <value>[scriptid=custitem_ns_tx_image1]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Image 2</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_image2]</value>
+              </parameter>
+              <parameter>
+                <name>Image 2</name>
+                <value>[scriptid=custitem_ns_tx_image2]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Image 3</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_image3]</value>
+              </parameter>
+              <parameter>
+                <name>Image 3</name>
+                <value>[scriptid=custitem_ns_tx_image3]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Image 4</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_image4]</value>
+              </parameter>
+              <parameter>
+                <name>Image 4</name>
+                <value>[scriptid=custitem_ns_tx_image4]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Image 5</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_image5]</value>
+              </parameter>
+              <parameter>
+                <name>Image 5</name>
+                <value>[scriptid=custitem_ns_tx_image5]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Model Serial Number</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_model_serial_num]</value>
+              </parameter>
+              <parameter>
+                <name>Model Serial Number</name>
+                <value>[scriptid=custitem_ns_tx_model_serial_num]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Manufacturer</name>
+                <value>@OLDRECORD@:STDITEMMANUFACTURER</value>
+              </parameter>
+              <parameter>
+                <name>Manufacturer</name>
+                <value>STDITEMMANUFACTURER</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:MPN</name>
+                <value>@OLDRECORD@:STDITEMMPN</value>
+              </parameter>
+              <parameter>
+                <name>MPN</name>
+                <value>STDITEMMPN</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Shopify Price</name>
+                <value>@OLDRECORD@:[scriptid=custitem_shopify_price]</value>
+              </parameter>
+              <parameter>
+                <name>Shopify Price</name>
+                <value>[scriptid=custitem_shopify_price]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Purchase Description</name>
+                <value>@OLDRECORD@:STDITEMPURCHASEDESCRIPTION</value>
+              </parameter>
+              <parameter>
+                <name>Purchase Description</name>
+                <value>STDITEMPURCHASEDESCRIPTION</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Compare At Price</name>
+                <value>@OLDRECORD@:[scriptid=custitem_compare_at_price]</value>
+              </parameter>
+              <parameter>
+                <name>Compare At Price</name>
+                <value>[scriptid=custitem_compare_at_price]</value>
+              </parameter>
+            </parameters>
+          </initcondition>
+        </setfieldvalueaction>
+        <setfieldvalueaction scriptid="workflowaction532">
+          <clienttriggerfields></clienttriggerfields>
+          <conditionsavedsearch></conditionsavedsearch>
+          <contexttypes>ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|CUSTOMTOOL|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW</contexttypes>
+          <eventtypes></eventtypes>
+          <field>[scriptid=custitem_shopify_sync_status]</field>
+          <isinactive>F</isinactive>
+          <scheduledelay></scheduledelay>
+          <schedulemode>DELAY</schedulemode>
+          <schedulerecurrence></schedulerecurrence>
+          <scheduletimeofday></scheduletimeofday>
+          <scheduletimeunit></scheduletimeunit>
+          <valuechecked>F</valuechecked>
+          <valuedate></valuedate>
+          <valuefield></valuefield>
+          <valueformula></valueformula>
+          <valuejoinfield></valuejoinfield>
+          <valueselect>[scriptid=customlist_shopify_sync_status.val_3836286_5406208_513]</valueselect>
+          <valuetext></valuetext>
+          <valuetype>STATIC</valuetype>
+          <initcondition>
+            <formula><![CDATA[isEmpty("Shopify Product ID") = 'F' AND "Events " IN ("{#Event#}1") AND "Old Record:Events " IN ("{#Event#}1") AND ( "Old Record:Shopify Item Description " != "Shopify Item Description " OR "Old Record:Hierarchy Node (Shopify)" != "Hierarchy Node (Shopify)" OR "Old Record:Condition" NOT IN ("Condition") OR "Old Record:Height" != "Height" OR "Old Record:Width" != "Width" OR "Old Record:Depth" != "Depth" OR "Old Record:Image 1" != "Image 1" OR "Old Record:Image 2" != "Image 2" OR "Old Record:Image 3" != "Image 3" OR "Old Record:Image 4" != "Image 4" OR "Old Record:Image 5" != "Image 5" OR "Old Record:Model Serial Number" != "Model Serial Number" OR "Old Record:Manufacturer" != "Manufacturer" OR "Old Record:MPN" != "MPN" OR "Old Record:Shopify Price" != "Shopify Price" OR "Old Record:Purchase Description" != "Purchase Description" OR "Old Record:Compare At Price" != "Compare At Price" )]]></formula>
+            <type>VISUAL_BUILDER</type>
+            <parameters>
+              <parameter>
+                <name>Shopify Product ID</name>
+                <value>[scriptid=custitem_shopify_product_id]</value>
+              </parameter>
+              <parameter>
+                <name>Events </name>
+                <value>[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>{#Event#}1</name>
+                <selectrecordtype>-20</selectrecordtype>
+                <value>[ACCOUNT_SPECIFIC_VALUE]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Events </name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_event_list]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Shopify Item Description </name>
+                <value>@OLDRECORD@:[scriptid=custitem_shopify_item_description]</value>
+              </parameter>
+              <parameter>
+                <name>Shopify Item Description </name>
+                <value>[scriptid=custitem_shopify_item_description]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Hierarchy Node (Shopify)</name>
+                <value>@OLDRECORD@:[scriptid=custitem_hierarchy_node_shopify]</value>
+              </parameter>
+              <parameter>
+                <name>Hierarchy Node (Shopify)</name>
+                <value>[scriptid=custitem_hierarchy_node_shopify]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Condition</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_condition]</value>
+              </parameter>
+              <parameter>
+                <name>Condition</name>
+                <value>[scriptid=custitem_ns_tx_condition]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Height</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_height]</value>
+              </parameter>
+              <parameter>
+                <name>Height</name>
+                <value>[scriptid=custitem_ns_tx_height]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Width</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_width]</value>
+              </parameter>
+              <parameter>
+                <name>Width</name>
+                <value>[scriptid=custitem_ns_tx_width]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Depth</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_depth]</value>
+              </parameter>
+              <parameter>
+                <name>Depth</name>
+                <value>[scriptid=custitem_ns_tx_depth]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Image 1</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_image1]</value>
+              </parameter>
+              <parameter>
+                <name>Image 1</name>
+                <value>[scriptid=custitem_ns_tx_image1]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Image 2</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_image2]</value>
+              </parameter>
+              <parameter>
+                <name>Image 2</name>
+                <value>[scriptid=custitem_ns_tx_image2]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Image 3</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_image3]</value>
+              </parameter>
+              <parameter>
+                <name>Image 3</name>
+                <value>[scriptid=custitem_ns_tx_image3]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Image 4</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_image4]</value>
+              </parameter>
+              <parameter>
+                <name>Image 4</name>
+                <value>[scriptid=custitem_ns_tx_image4]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Image 5</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_image5]</value>
+              </parameter>
+              <parameter>
+                <name>Image 5</name>
+                <value>[scriptid=custitem_ns_tx_image5]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Model Serial Number</name>
+                <value>@OLDRECORD@:[scriptid=custitem_ns_tx_model_serial_num]</value>
+              </parameter>
+              <parameter>
+                <name>Model Serial Number</name>
+                <value>[scriptid=custitem_ns_tx_model_serial_num]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Manufacturer</name>
+                <value>@OLDRECORD@:STDITEMMANUFACTURER</value>
+              </parameter>
+              <parameter>
+                <name>Manufacturer</name>
+                <value>STDITEMMANUFACTURER</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:MPN</name>
+                <value>@OLDRECORD@:STDITEMMPN</value>
+              </parameter>
+              <parameter>
+                <name>MPN</name>
+                <value>STDITEMMPN</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Shopify Price</name>
+                <value>@OLDRECORD@:[scriptid=custitem_shopify_price]</value>
+              </parameter>
+              <parameter>
+                <name>Shopify Price</name>
+                <value>[scriptid=custitem_shopify_price]</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Purchase Description</name>
+                <value>@OLDRECORD@:STDITEMPURCHASEDESCRIPTION</value>
+              </parameter>
+              <parameter>
+                <name>Purchase Description</name>
+                <value>STDITEMPURCHASEDESCRIPTION</value>
+              </parameter>
+              <parameter>
+                <name>Old Record:Compare At Price</name>
+                <value>@OLDRECORD@:[scriptid=custitem_compare_at_price]</value>
+              </parameter>
+              <parameter>
+                <name>Compare At Price</name>
+                <value>[scriptid=custitem_compare_at_price]</value>
+              </parameter>
+            </parameters>
+          </initcondition>
+        </setfieldvalueaction>
+      </workflowactions>
+    </workflowstate>
+  </workflowstates>
+</workflow>
