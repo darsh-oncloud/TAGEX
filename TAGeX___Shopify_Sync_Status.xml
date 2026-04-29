@@ -7,7 +7,7 @@
   <initonvieworupdate>T</initonvieworupdate>
   <initsavedsearchcondition></initsavedsearchcondition>
   <inittriggertype></inittriggertype>
-  <isinactive>F</isinactive>
+  <isinactive>T</isinactive>
   <islogenabled>F</islogenabled>
   <keephistory>ALWAYS</keephistory>
   <name>TAGeX | Shopify Sync Status</name>
