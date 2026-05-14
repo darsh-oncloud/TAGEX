@@ -102,7 +102,7 @@ define(['N/ui/serverWidget', 'N/search', 'N/record', 'N/redirect', 'N/runtime', 
     }
 
     var STATUS_COLORS = [
-      '#0ea5e9', '#f97316', '#22c55e', '#ef4444', '#8b5cf6', '#14b8a6', '#64748b'
+      '#ff1493', '#f97316', '#22c55e', '#ef4444', '#8b5cf6', '#14b8a6', '#64748b'
     ];
 
     function onRequest(context) {
@@ -1132,28 +1132,28 @@ var noteId = noteRec.save({
   var ACTION_COLOR_MAP = {
     'Field Action To Occur':         { bg:'#7c3aed', fg:'#fff' },
     'Pick Up Day Pending':           { bg:'#dc2626', fg:'#fff' },
-    'Client TBD':                    { bg:'#6366f1', fg:'#fff' },
+    'Client TBD':                    { bg:'#ff1493', fg:'#fff' },
     'Warehouse Documentation':       { bg:'#0891b2', fg:'#fff' },
     'Internal Pause':                { bg:'#b91c1c', fg:'#fff' },
     'Sales Team':                    { bg:'#4f46e5', fg:'#fff' },
     'Signed Invoices Needed':        { bg:'#ca8a04', fg:'#fff' },
     'Logistics':                     { bg:'#0d9488', fg:'#fff' },
     'Scheduled':                     { bg:'#16a34a', fg:'#fff' },
-    'Payment Pending':               { bg:'#ef4444', fg:'#fff' },
-    'On Going':                      { bg:'#22c55e', fg:'#fff' },
+    'Payment Pending':               { bg:'#8b0000', fg:'#fff' },
+    'On Going':                      { bg:'#800080', fg:'#fff' },
     'Managed':                       { bg:'#15803d', fg:'#fff' },
     'Quote Pending':                 { bg:'#d97706', fg:'#fff' },
-    'Remote Doc (app sent)':         { bg:'#2563eb', fg:'#fff' },
+    'Remote Doc (app sent)':         { bg:'#ffb6c1', fg:'#111827' },
     'Proceeds Pending':              { bg:'#f59e0b', fg:'#fff' },
-    'Onboarding Call Scheduled':     { bg:'#8b5cf6', fg:'#fff' },
+    'Onboarding Call Scheduled':     { bg:'#ff1493', fg:'#fff' },
     'LIVE (eBay)':                   { bg:'#059669', fg:'#fff' },
     'LIVE':                          { bg:'#10b981', fg:'#fff' },
     'Remote Documentation':          { bg:'#3b82f6', fg:'#fff' },
-    'Client Field Pick Up / Drop Off': { bg:'#be123c', fg:'#fff' },
+    'Client Field Pick Up / Drop Off': { bg:'#c4a484', fg:'#111827' },
     'Project Review':                { bg:'#0ea5e9', fg:'#fff' },
     'STUCK':                         { bg:'#991b1b', fg:'#fff' },
-    'TAGeX Remote Doc':              { bg:'#1d4ed8', fg:'#fff' },
-    'Ecomm Auction Launch':          { bg:'#a855f7', fg:'#fff' },
+    'TAGeX Remote Doc':              { bg:'#ff4500', fg:'#fff' },
+    'Ecomm Auction Launch':          { bg:'#ffff00', fg:'#111827' },
     'Proceeds Sent':                 { bg:'#14b8a6', fg:'#fff' }
   };
 
