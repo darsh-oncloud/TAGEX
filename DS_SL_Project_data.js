@@ -102,7 +102,7 @@ define(['N/ui/serverWidget', 'N/search', 'N/record', 'N/redirect', 'N/runtime', 
     }
 
     var STATUS_COLORS = [
-      '#ff1493', '#f97316', '#22c55e', '#ef4444', '#8b5cf6', '#14b8a6', '#64748b'
+      '#0ea5e9', '#f97316', '#22c55e', '#ef4444', '#8b5cf6', '#14b8a6', '#64748b'
     ];
 
     function onRequest(context) {
