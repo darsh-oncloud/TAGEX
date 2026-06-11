@@ -115,6 +115,11 @@ define(['N/ui/serverWidget', 'N/search', 'N/record', 'N/redirect', 'N/runtime', 
           if (changesJson) {
             var changes = JSON.parse(changesJson);
 
+            log.audit({
+               title: 'DASHBOARD | Changes received BEFORE post',
+               details: changesJson
+            });
+
             for (var recId in changes) {
               if (!changes.hasOwnProperty(recId)) continue;
 
@@ -150,14 +155,61 @@ define(['N/ui/serverWidget', 'N/search', 'N/record', 'N/redirect', 'N/runtime', 
                 valuesToUpdate.custrecord_firequested = row.custrecord_firequested;
               }
 
+              // if (Object.keys(valuesToUpdate).length) {
+              //   record.submitFields({
+              //     type: 'customrecord_project',
+              //     id: recId,
+              //     values: valuesToUpdate,
+              //     options: { enableSourcing: true, ignoreMandatoryFields: true }
+              //   });
+              // }
+
               if (Object.keys(valuesToUpdate).length) {
-                record.submitFields({
-                  type: 'customrecord_project',
-                  id: recId,
-                  values: valuesToUpdate,
-                  options: { enableSourcing: true, ignoreMandatoryFields: true }
-                });
-              }
+
+  // BEFORE — what is on the record right now
+  var beforeVals = search.lookupFields({
+    type: 'customrecord_project',
+    id: recId,
+    columns: [
+      'custrecord_project_lead',
+      'custrecord_action_status',
+      'custrecord_project_status',
+      'custrecord_next_milestone_date'
+    ]
+  });
+
+  log.audit({
+    title: 'DASHBOARD | Project ' + recId + ' - BEFORE post',
+    details: {
+      fieldsScriptWillWrite: valuesToUpdate,
+      currentValuesOnRecord: beforeVals
+    }
+  });
+
+  record.submitFields({
+    type: 'customrecord_project',
+    id: recId,
+    values: valuesToUpdate,
+    options: { enableSourcing: true, ignoreMandatoryFields: true }
+  });
+
+  // AFTER — what actually saved
+  var afterVals = search.lookupFields({
+    type: 'customrecord_project',
+    id: recId,
+    columns: [
+      'custrecord_project_lead',
+      'custrecord_action_status',
+      'custrecord_project_status',
+      'custrecord_next_milestone_date'
+    ]
+  });
+
+  log.audit({
+    title: 'DASHBOARD | Project ' + recId + ' - AFTER post',
+    details: afterVals
+  });
+}
 
               if (row.notes && row.notes.add && row.notes.add.length) {
                 log.debug('Project note payload received', {
