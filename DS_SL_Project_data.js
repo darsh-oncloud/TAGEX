@@ -105,6 +105,32 @@ define(['N/ui/serverWidget', 'N/search', 'N/record', 'N/redirect', 'N/runtime', 
       '#0ea5e9', '#f97316', '#22c55e', '#ef4444', '#8b5cf6', '#14b8a6', '#64748b'
     ];
 
+var MAX_CHANGES_PER_POST = 15;
+
+function countPostChanges(changes) {
+  var count = 0;
+
+  for (var recId in changes) {
+    if (!changes.hasOwnProperty(recId)) continue;
+
+    var row = changes[recId] || {};
+
+    if (row.hasOwnProperty('milestone')) count++;
+    if (row.hasOwnProperty('actionStatus')) count++;
+    if (row.hasOwnProperty('projectStatus')) count++;
+    if (row.hasOwnProperty('projectLead')) count++;
+    if (row.hasOwnProperty('custrecord_projteased')) count++;
+    if (row.hasOwnProperty('custrecord_firequested')) count++;
+
+    if (row.notes && row.notes.add && row.notes.add.length) {
+      count += row.notes.add.length;
+    }
+  }
+
+  return count;
+}
+
+    
     function onRequest(context) {
       var request = context.request;
       var defaultProjectId = request.parameters.projectid || '';
@@ -114,6 +140,27 @@ define(['N/ui/serverWidget', 'N/search', 'N/record', 'N/redirect', 'N/runtime', 
           var changesJson = request.parameters.custpage_changes || '';
           if (changesJson) {
             var changes = JSON.parse(changesJson);
+
+            var postChangeCount = countPostChanges(changes);
+
+if (postChangeCount > MAX_CHANGES_PER_POST) {
+  log.error({
+    title: 'DASHBOARD | Change limit exceeded',
+    details: {
+      maxAllowed: MAX_CHANGES_PER_POST,
+      receivedCount: postChangeCount,
+      changes: changes
+    }
+  });
+
+  context.response.write(
+    '<html><body><script>' +
+    'alert("Only 15 changes can be made in one post. Please remove one change before adding another.");' +
+    'history.back();' +
+    '</script></body></html>'
+  );
+  return;
+}
 
             log.audit({
                title: 'DASHBOARD | Changes received BEFORE post',
@@ -1167,6 +1214,66 @@ var noteId = noteRec.save({
   var NOTE_POPUP_URL = ${JSON.stringify(notePopupUrl || '')};
   var NOTE_DRAFTS = {};
 
+  var MAX_CHANGES_PER_POST = 15;
+
+function alertChangeLimit(){
+  alert('Only 15 changes can be made in one post. Please remove one change before adding another.');
+}
+
+function countClientChanges(changes) {
+  var count = 0;
+
+  for (var recId in changes) {
+    if (!changes.hasOwnProperty(recId)) continue;
+
+    var row = changes[recId] || {};
+
+    if (row.hasOwnProperty('milestone')) count++;
+    if (row.hasOwnProperty('actionStatus')) count++;
+    if (row.hasOwnProperty('projectStatus')) count++;
+    if (row.hasOwnProperty('projectLead')) count++;
+    if (row.hasOwnProperty('custrecord_projteased')) count++;
+    if (row.hasOwnProperty('custrecord_firequested')) count++;
+
+    if (row.notes && row.notes.add && row.notes.add.length) {
+      count += row.notes.add.length;
+    }
+  }
+
+  return count;
+}
+
+function getPendingChangeCount(){
+  return countClientChanges(buildChangesJson());
+}
+
+function revertEditorToOriginal(el){
+  if (!el) return;
+
+  if (el.classList.contains('chk-projteased') || el.classList.contains('chk-firequested')) {
+    el.checked = ((el.getAttribute('data-orig') || 'F') === 'T');
+    return;
+  }
+
+  el.value = el.getAttribute('data-orig') || '';
+
+  if (el.classList.contains('actionStatus')) setSelectColor(el);
+  if (el.classList.contains('projStatus')) setProjectStatusColor(el);
+}
+
+function enforceChangeLimitForEditor(el){
+  if (getPendingChangeCount() <= MAX_CHANGES_PER_POST) return true;
+
+  alertChangeLimit();
+  revertEditorToOriginal(el);
+
+  var tr = el.closest('tr[data-recid]');
+  markRowChangedIfNeeded(tr);
+  renderChangeBox();
+
+  return false;
+}
+
   function norm(s){ return (s == null ? '' : String(s)).trim(); }
 
   function setProjectStatusColor(sel){
@@ -1567,8 +1674,9 @@ var noteId = noteRec.save({
       }
     }
 
-    countEl.textContent = String(items.length || 0);
-
+   // countEl.textContent = String(items.length || 0);
+    countEl.textContent = String(items.length || 0) + ' / ' + MAX_CHANGES_PER_POST;
+    
     if (!items.length){
       emptyEl.style.display = '';
       listEl.style.display = 'none';
@@ -1766,10 +1874,26 @@ function openNotePopup(recId, tempId, title, memo, mode){
       }
     }
 
-    if (!found) NOTE_DRAFTS[recId].add.push(obj);
+    // if (!found) NOTE_DRAFTS[recId].add.push(obj);
 
+    // renderNoteDrafts(recId);
+    // renderChangeBox();
+if (!found) {
+  NOTE_DRAFTS[recId].add.push(obj);
+
+  if (getPendingChangeCount() > MAX_CHANGES_PER_POST) {
+    NOTE_DRAFTS[recId].add.pop();
+    alertChangeLimit();
     renderNoteDrafts(recId);
     renderChangeBox();
+    return;
+  }
+}
+
+renderNoteDrafts(recId);
+renderChangeBox();
+
+    
   };
 
   function renderNoteDrafts(recId){
@@ -1813,6 +1937,12 @@ function openNotePopup(recId, tempId, title, memo, mode){
       alert('No changes found.');
       return;
     }
+
+    var totalChanges = countClientChanges(changes);
+if (totalChanges > MAX_CHANGES_PER_POST) {
+  alertChangeLimit();
+  return;
+}
     var hidden = document.getElementById('custpage_changes');
     if (hidden) hidden.value = JSON.stringify(changes);
 
@@ -2281,13 +2411,25 @@ function openNotePopup(recId, tempId, title, memo, mode){
 
     var editorEls = document.querySelectorAll('.edit, .chk-projteased, .chk-firequested');
     for (var e=0;e<editorEls.length;e++){
-      editorEls[e].addEventListener('change', function(){
-        var tr = this.closest('tr[data-recid]');
-        if (this.classList.contains('actionStatus')) setSelectColor(this);
-        if (this.classList.contains('projStatus')) setProjectStatusColor(this);
-        markRowChangedIfNeeded(tr);
-        renderChangeBox();
-      });
+      // editorEls[e].addEventListener('change', function(){
+      //   var tr = this.closest('tr[data-recid]');
+      //   if (this.classList.contains('actionStatus')) setSelectColor(this);
+      //   if (this.classList.contains('projStatus')) setProjectStatusColor(this);
+      //   markRowChangedIfNeeded(tr);
+      //   renderChangeBox();
+      // 
+editorEls[e].addEventListener('change', function(){
+  var tr = this.closest('tr[data-recid]');
+  if (this.classList.contains('actionStatus')) setSelectColor(this);
+  if (this.classList.contains('projStatus')) setProjectStatusColor(this);
+
+  markRowChangedIfNeeded(tr);
+  renderChangeBox();
+
+  enforceChangeLimitForEditor(this);
+});
+
+      
     }
 
     var filterEls = document.querySelectorAll('#f_project, #f_client, #f_owner, #f_sales, #f_ms_from, #f_ms_to');
